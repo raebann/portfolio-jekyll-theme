@@ -18,25 +18,6 @@ seo:
   rel-publisher: 'https://plus.google.com/u/0/#'
 
 #-------------------------------
-# Google Analytics Section
-
-# Analytics helps you understand who visits your website.
-# Learn more at: http://support.google.com/analytics/answer/1008065
-
-# NOTE: If you want to use Google Analytics for basic web tracking: Just uncomment and enter your UA-Code here.
-
-# If you are not using Google Analytics, please change 'google-ID' to an empty string
-google-analytics-ua: ''
-
-#-------------------------------
-# Disqus Section
-
-# Change to true for Disqus comments
-disqus:
-  comments: false
-  disqus_shortname: ''
-
-#-------------------------------
 # About Section
 
 about: >
