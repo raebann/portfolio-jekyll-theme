@@ -2,7 +2,7 @@
 
 markdown: kramdown
 permalink: none
-plugins:             [jekyll-sitemap, jekyll-seo-tag]
+plugins: [jekyll-sitemap, jekyll-seo-tag]
 
 port: 4000
 
@@ -10,8 +10,10 @@ sass:
   sass_dir: assets/css
   style: :nested
 
-# Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
+# Site settings:
+#   title is used for the logo
+#   title, description, and author are all used to populate <meta> tags for SEO
 
-title:		           "Portfolio"
-description:	       "Powered by Jekyll and GitHub Pages"
-author:              "Rachel Bannerman"
+title:        "Portfolio"
+description:  "Powered by Jekyll and GitHub Pages"
+author:       "Rachel Bannerman"
