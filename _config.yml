@@ -3,6 +3,7 @@
 markdown: kramdown
 permalink: none
 plugins: [jekyll-sitemap, jekyll-seo-tag]
+include: ['_pages']
 
 port: 4000
 
