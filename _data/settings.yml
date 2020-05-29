@@ -3,9 +3,9 @@
 
 menu:
 - {name: 'Projects', url: ''}
-- {name: 'About', url: 'about.html'}
-- {name: 'CV', url: 'cv.html'}
-- {name: 'Contact', url: 'contact.html'}
+- {name: 'About', url: 'about'}
+- {name: 'CV', url: 'cv'}
+- {name: 'Contact', url: 'contact'}
 
 #-------------------------------
 # SEO Section
