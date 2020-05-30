@@ -35,13 +35,29 @@ contact: >
 
 #-------------------------------
 # Work Section
+# Each category gets a page listing its projects,
+#   and each project gets a page generated from /categories/<category name>/<project name>/index.md.
+# Thumbnails are found in assets/img/categories/<category name>/thumb.jpg,
+#   and assets/img/categories/<category name>/<project name>/thumb.jpg.
 
-projects:
-- {name: 'Project One', folder: 'proj-1', file: 'projects/proj-1.html'}
-- {name: 'Project Two', folder: 'proj-2', file: 'projects/proj-2.html'}
-- {name: 'Project Three', folder: 'proj-3', file: 'projects/proj-3.html'}
-- {name: 'Project Four', folder: 'proj-4', file: 'projects/proj-4.html'}
-- {name: 'Project Five', folder: 'proj-5', file: 'projects/proj-5.html'}
+categories:
+- name: 'Design/Technical'
+  folder: 'design'
+  projects:
+  - {name: 'Project One', file: 'proj-1'}
+  - {name: 'Project Two', file: 'proj-2'}
+- name: 'Performance'
+  folder: 'performance'
+  projects:
+  - {name: 'Project Three', file: 'proj-3'}
+- name: 'Interdisciplinary'
+  folder: 'interdisciplinary'
+  projects:
+  - {name: 'Project Four', file: 'proj-4'}
+  - {name: 'Project Five', file: 'proj-5'}
+- name: 'Written Work'
+  folder: 'written'
+  projects:
 
 #-------------------------------
 # Contact Section
@@ -53,4 +69,3 @@ social:
 - {icon: 'github', link: '#'}
 - {icon: 'linkedin', link: '#'}
 - {icon: 'envelope', link: 'mailto:#'}
-

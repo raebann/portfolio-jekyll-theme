@@ -11,6 +11,14 @@ sass:
   sass_dir: assets/css
   style: :nested
 
+# File structure for project pages
+#   files will be served under /<category name>/<project name>
+
+collections:
+  categories:
+    output: true
+    permalink: /:path
+
 # Site settings:
 #   title is used for the logo
 #   title, description, and author are all used to populate <meta> tags for SEO
