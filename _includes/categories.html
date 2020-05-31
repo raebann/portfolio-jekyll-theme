@@ -1,5 +1,5 @@
 <section>
-  <div class="thumb-container">
+  <div class="cat-container">
     {% assign categories = site.collections | where_exp: "category", "category.label != 'posts'" | sort: "weight" %}
     
     {% for category in categories %}
