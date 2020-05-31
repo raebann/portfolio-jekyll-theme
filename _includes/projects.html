@@ -4,7 +4,7 @@
 
     {% for project in projects %}
       <a href="{{ project.url }}">
-      <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/categories/{{ project.id }}/thumb.jpg)">
+      <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/{{ project.id }}/thumb.jpg)">
         <div class="thumb-overlay">
             <strong>{{ project.title }} <i class="fa fa-arrow-right" aria-hidden="true"></i></strong>
           </div>
