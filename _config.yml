@@ -14,7 +14,7 @@ sass:
 
 # Project categories
 
-collections_dir: categories
+collections_dir: projects
 collections:
   design:
     name: 'Design/Technical'
