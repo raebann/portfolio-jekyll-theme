@@ -1,7 +1,8 @@
 <section>
   <div class="thumb-container">
-    {% for category in site.collections %}
-      {% if category.label == "posts" %}{% continue %}{% endif %}
+    {% assign categories = site.collections | where_exp: "category", "category.label != 'posts'" | sort: "weight" %}
+    
+    {% for category in categories %}
       <a href="{{ site.github.url }}/{{ category.label }}">
         <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/categories/{{ category.label }}/thumb.jpg)">
           <div class="thumb-overlay">

@@ -17,15 +17,19 @@ collections_dir: categories
 collections:
   design:
     name: 'Design/Technical'
+    weight: 0
     output: true
   performance:
     name: "Performance"
+    weight: 1
     output: true
   interdisciplinary:
     name: "Interdisciplinary"
+    weight: 2
     output: true
   written:
     name: "Written Work"
+    weight: 3
     output: true
 
 # Site settings:
