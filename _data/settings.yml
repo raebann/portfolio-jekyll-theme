@@ -2,7 +2,13 @@
 # General Site Settings
 
 menu:
-- {name: 'Projects', url: ''}
+- name: 'Projects'
+  url: '/'
+  children:
+    - {name: 'Design/Technical', url: 'design'}
+    - {name: 'Performance', url: 'performance'}
+    - {name: 'Interdisciplinary', url: 'interdisciplinary'}
+    - {name: 'Written Work', url: 'written'}
 - {name: 'About', url: 'about'}
 - {name: 'CV', url: 'cv'}
 - {name: 'Contact', url: 'contact'}
