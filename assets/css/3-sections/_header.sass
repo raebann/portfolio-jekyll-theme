@@ -38,6 +38,8 @@ nav
     position: absolute
     z-index: 1
     visibility: hidden
+    opacity: 0
+    transition: opacity .1s linear
     li
       display: block
     a
@@ -47,6 +49,7 @@ nav
   li:focus-within ul.dropdown,
   li ul.dropdown:hover
     visibility: visible
+    opacity: 1
 
 @media (max-width: 768px)
   header
