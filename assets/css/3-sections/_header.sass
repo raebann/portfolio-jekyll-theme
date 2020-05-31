@@ -1,6 +1,18 @@
 header
   flex: 0
   height: 90px
+  .skip-nav
+    position: absolute
+    top: -50px
+    left: 50%
+    transform: translateX(-50%)
+    padding: 5px 10px
+    color: $accent-color
+    background-color: white
+    transition: top .1s linear
+    &:focus
+      border: 1px dotted black
+      top: 5px
   .logo
     float: left
     margin: 30px
@@ -26,7 +38,8 @@ header
       &:hover,
       &:focus,
         color: $accent-color
-  a
+  .logo a,
+  nav a
     text-decoration: none
 
 

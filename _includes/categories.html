@@ -1,15 +1,13 @@
-<section>
-  <div class="cat-container">
-    {% assign categories = site.collections | where_exp: "category", "category.label != 'posts'" | sort: "weight" %}
-    
-    {% for category in categories %}
-      <a href="{{ category.label | relative_url }}">
-        <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/{{ category.label }}/thumb.jpg)">
-          <div class="thumb-overlay">
-            <strong>{{ category.name }} <i class="fa fa-arrow-right" aria-hidden="true"></i></strong>
-          </div>
+<div class="cat-container">
+  {% assign categories = site.collections | where_exp: "category", "category.label != 'posts'" | sort: "weight" %}
+  
+  {% for category in categories %}
+    <a href="{{ category.label | relative_url }}">
+      <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/{{ category.label }}/thumb.jpg)">
+        <div class="thumb-overlay">
+          <strong>{{ category.name }} <i class="fa fa-arrow-right" aria-hidden="true"></i></strong>
         </div>
-      </a>
-    {% endfor %}
-  </div>
-</section>
+      </div>
+    </a>
+  {% endfor %}
+</div>
