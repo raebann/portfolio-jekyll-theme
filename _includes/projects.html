@@ -1,13 +1,17 @@
 <section>
   <div class="thumb-container">
-    {% for project in site.data.settings.projects %}
-      <a href="{{ site.github.url }}/{{ project.file }}">
-        <div class="thumb-unit" data-folder="{{ site.github.url }}/projects/{{ project.folder }}" style="background-image: url({{ site.github.url }}/assets/img/projects/{{ project.folder }}/thumb.jpg)">
-          <div class="thumb-overlay">
-            <strong>{{ project.name }} <i class="fa fa-arrow-right" aria-hidden="true"></i></strong>
+    {% assign projects = include.category | where_exp: "project", "project.id != '/index'" %}
+
+    {% for project in projects %}
+      <a href="{{ project.url }}">
+      <div class="thumb-unit" style="background-image: url({{ site.github.url }}/assets/img/categories/{{ project.id }}/thumb.jpg)">
+        <div class="thumb-overlay">
+            <strong>{{ project.title }} <i class="fa fa-arrow-right" aria-hidden="true"></i></strong>
           </div>
         </div>
       </a>
+    {% else %}
+      There are currently no projects under "{{ page.title }}". Please check back in later!
     {% endfor %}
   </div>
 </section>
