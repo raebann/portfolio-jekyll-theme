@@ -34,8 +34,10 @@
       font:
         size: 24px
         weight: 300
-  &:hover .thumb-overlay
-    +position(absolute, 0px 0px null 0px)
+
+a:hover .thumb-unit .thumb-overlay,
+a:focus .thumb-unit .thumb-overlay
+  +position(absolute, 0px 0px null 0px)
 
 @media (max-width: 768px)
   .thumb-container
