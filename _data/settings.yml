@@ -14,14 +14,8 @@ menu:
 - {name: 'Contact', url: 'contact'}
 
 #-------------------------------
-# SEO Section
-# NOTE: Providing SEO information will make this website more searchable on the internet.
-
-seo:
-  description: 'Personal portfolio powered by Jekyll and GitHub Pages'
-
-#-------------------------------
-# About Section
+# Theme Pages
+# About, CV, and Contact page content is defined here
 
 about: >
   # Portfolio Jekyll Theme
