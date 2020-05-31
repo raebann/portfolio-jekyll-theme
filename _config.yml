@@ -11,13 +11,22 @@ sass:
   sass_dir: assets/css
   style: :nested
 
-# File structure for project pages
-#   files will be served under /<category name>/<project name>
+# Project categories
 
+collections_dir: categories
 collections:
-  categories:
+  design:
+    name: 'Design/Technical'
     output: true
-    permalink: /:path
+  performance:
+    name: "Performance"
+    output: true
+  interdisciplinary:
+    name: "Interdisciplinary"
+    output: true
+  written:
+    name: "Written Work"
+    output: true
 
 # Site settings:
 #   title is used for the logo

@@ -34,32 +34,6 @@ contact: >
   You may contact me [through my email](mailto:l.nguyen.paul@gmail.com) or [tweet at me](https://twitter.com/intent/tweet?text=%40paululele) if you have any questions or would like to bring up any issues.
 
 #-------------------------------
-# Work Section
-# Each category gets a page listing its projects,
-#   and each project gets a page generated from /categories/<category name>/<project name>/index.md.
-# Thumbnails are found in assets/img/categories/<category name>/thumb.jpg,
-#   and assets/img/categories/<category name>/<project name>/thumb.jpg.
-
-categories:
-- name: 'Design/Technical'
-  folder: 'design'
-  projects:
-  - {name: 'Project One', file: 'proj-1'}
-  - {name: 'Project Two', file: 'proj-2'}
-- name: 'Performance'
-  folder: 'performance'
-  projects:
-  - {name: 'Project Three', file: 'proj-3'}
-- name: 'Interdisciplinary'
-  folder: 'interdisciplinary'
-  projects:
-  - {name: 'Project Four', file: 'proj-4'}
-  - {name: 'Project Five', file: 'proj-5'}
-- name: 'Written Work'
-  folder: 'written'
-  projects:
-
-#-------------------------------
 # Contact Section
 # For a list of available icons, visit https://fontawesome.com/v4.7.0/icons/
 
