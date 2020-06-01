@@ -22,6 +22,7 @@ This is a portfolio site built using a modified version of the [Portfolio Jekyll
 3. [Accessibility Considerations](#accessibility-considerations)
    1. [Colour Contrast](#colour-contrast)
    2. [Descriptive Test](#descriptive-text)
+   3. [Auditing](#auditing)
 
 ## Introduction
 
@@ -53,22 +54,22 @@ There are two file types that you will most likely have to edit: `.yml` (YAML) f
 
 #### YAML
 
-YAML is a simple markup language for defining data in plain text. In this site it's used for anything from defining theme colours, to menu items, to SEO tags. You generally won't have to edit these files often as the settings are mostly static.
+YAML is a simple markup language for defining data in plain text. In this site it's used for anything from defining theme colours, to menu items, to SEO (search engine optimization) tags. You generally won't have to edit these files often as the settings are mostly static.
 
-When you do edit them though, keep in mind that YAML is *whitespace-sensitive*, so the number of spaces at the beggining of a line matters.
+When you do edit them though, keep in mind that YAML is **whitespace-sensitive**, so the number of spaces at the beggining of a line matters.
 
 #### Markdown
 
-Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. Here we mostly use to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](#https://www.markdownguide.org/cheat-sheet/) [good](#https://commonmark.org/help/) [references](#https://guides.github.com/features/mastering-markdown/) online for how to write Markdown.
+Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](#https://www.markdownguide.org/cheat-sheet/) [good](#https://commonmark.org/help/) [guides](#https://guides.github.com/features/mastering-markdown/) on to write Markdown.
 
-> Markdown implementations tend to differ from one anotother, so your mileage may vary with any specific guide. Generally speaking, the most common features are consistent, but if all else fails, [this guide](#https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
+> Markdown implementations tend to differ from one another, so your mileage may vary with any specific guide. Generally speaking the most common features are consistent, but if all else fails [this guide](#https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
 
 #### Others
 
 Obviously there's a few other file types in the project, most notably:
 
-* the site's layout is defined by `.html` files in `_includes/`, `_layouts/`, and `_pages/`,
-* the styles are defined by the `.sass` files in `assets/css/`, and
+* the site's layout is defined by `.html` files in `_includes/`, `_layouts/`, and `_pages/`;
+* the styles are defined by the `.sass` files in `assets/css/`; and
 * any images included in the website (probably `.jpg`, though in theory they could be any image format) are in `/assets/img/`.
 
 Other than images ([discussed below](#images)) you won't have to touch these unless you want to change the site's fundamental appearance or behaviour.
@@ -84,34 +85,34 @@ TODO
 
 ### Site Settings
 
-Site settings live in one of two places: the `_config.yml` file, or the `_data/` folder. The former holds data about how the site is structured, while the latter has information about the presentation and content of the site's pages.
+Site settings live in one of two places: the `_config.yml` file, or the `_data/` folder. The former holds information about how the site is structured, while the latter has data about the presentation and content of the site's pages.
 
 #### General Configuration
 
 The `_config.yml` file has a bunch of boilerplate at the top, which you can ignore; it's just telling Jekyll how to process the files it finds. The interesting sections are `collections`, `title`, `description`, and `author`. We'll cover `collections` in the [categories section below](#categories). For now, all you need to know is that this defines the project categories for the site.
 
-The `title`, `description`, and `author` values are mostly used for SEO. They should accurately describe the site. The `title` is also used as the site title (the text that appears in the browser tab) as well as in the site's "logo" (the text that appears at the top-left in the navigation menu).
+The `title`, `description`, and `author` values are mostly used for SEO. They should accurately describe the site. The `title` is also used as the site title (the text that appears in the browser tab) as well as in the site's "logo" (the text that appears on the top-left in the navigation menu).
 
 #### Theming
 
-The `_data` folder contains the `layout.yml` and `settings.yml` files. The first of these defines theme colours for the site. These colours are defined as hex codes, which look like `#1a2b3c` or `#789` (which is short for `#778899`). It should be relatively easy to figure out what colour a code represents: just Googling shows the colour at the top of the search results. The colours in the file are:
+The `_data` folder contains the `layout.yml` and `settings.yml` files. The first of these defines theme colours for the site. These colours are defined as hex codes, which look like `#1a2b3c` or `#789` (which is short for `#778899`). If you're not familiar with these, it should be relatively easy to figure out what colour a code represents: just Googling it shows the colour at the top of the search results. The colours in the file are:
 
 * `accent`: This is the site's accent colour. It's used for the link colour, the hover colour of menu items, and the text highlight colour.
 * `textColor`: This is the base text colour for most of the site. Note that links, menu items, and headers do not use this colour.
 * `headlineColor`: This is the colour for individual page titles.
 * `documentBackgroundColor`: This is the site's background colour.
 
-When choosing colours, make sure the contrast between the foreground and background is high enough to abide by [accessibility requirements](#accessibility-considerations). Also note that (for now) menu items don't have any colour settings; they'll always be black. This means you can't give the site a dark theme as the menus will be illegible.
+When choosing colours, make sure the contrast between the foreground and background is high enough to abide by [accessibility requirements](#accessibility-considerations). Also note that (for now) menu items don't have any colour settings; they'll always be black (`#000000`). This means you can't give the site a dark theme as the menus will be illegible.
 
 #### Static Content
 
-The second file in `_data`, `settings.yml` contains the site's "static" content (I'm just calling it static because it presumably changes less often than projects, not because it can't or shouldn't change). It comprises three sections: `menu` at the top, `about` `cv` and `contact` in the middle, and `social` at the bottom. This mirrors where in a page each of these things would appear.
+The second file in `_data/`, `settings.yml`, contains the site's "static" content (I'm just calling it static because it presumably changes less often than projects, not because it can't or shouldn't change). It comprises three sections: `menu` at the top, `about` `cv` and `contact` in the middle, and `social` at the bottom. This mirrors the order they would appear in a page.
 
-The menu `section` defines the menu on the top-right of every page. Each entry needs to have a `name` which will be displayed, and a `url` which is the page that should be linked. Optionally, a menu item can have a list of `children`, which follow the same structure. Note that the menu doesn't support a depth of more than two (_i.e._ children can't themselves have children).
+The `menu` section defines the menu on the top-right of every page. Each entry needs to have a `name` which will be displayed, and a `url` which is the page that should be linked. Optionally, a menu item can have a list of `children`, which each have the same structure. Note that the menu doesn't support a depth of more than two (_i.e._ children can't themselves have children).
 
-The `about`, `cv`, and `contact` sections define the contents of each of those pages in Markdown. Notice that the first line of each starts with `>`: this just tells the YAML file that every indented line coming after is part of this section.
+The `about`, `cv`, and `contact` sections define the contents of each of those pages in Markdown. Notice that the first line of each starts with `>`. This just tells the YAML file that every indented line coming after is part of this section.
 
-The `social` section behaves mostly like the `menu` above: each entry will add a social icon in the bottom menu. Each entry needs an `icon` (refer to [this list](https://fontawesome.com/v4.7.0/icons#brand) for available icons and their names), a `link` to the profile, and a `name`. The name is for screenreader users, who can't see the icon and so need a bref textual description of where the link will go (the site's name should be enough in most cases). For email, the `link` should be formatted like `mailto:email@example.com`.
+The `social` section behaves mostly like the `menu` above: each entry will add a social icon in the bottom menu. Each entry needs an `icon` (refer to [this list](https://fontawesome.com/v4.7.0/icons#brand) for available icons and their codes), a `link` to the social media profile, and a `name`. The name is for screenreader users, who can't see the icon and so need a brief textual description of where the link will go (the site's name should be enough in most cases). For email, the `link` should be formatted like `mailto:email@example.com`.
 
 ### Categories
 
@@ -134,9 +135,9 @@ TODO
 
 Web accessibility is hard! The WCAG (Web Consortium Accessibility Guidelines) are the gold standard for web accessibility, and they're notoriously complicated (for good reason). They have three levels of compliance which are, in order of most basic to most complete, A, AA, and AAA.
 
-Fortunately, this site is fairly simple (and yours truly tried their best to make it accessible) so there shouldn't be too much for you to do. Mostly you'll need to make sure that any changes you make don't break the site's accessibility. In that respect, there's only two things you need to pay attention to, both mentioned elsewhere in the document:
+Fortunately, this site is fairly simple (and yours truly tried their best to make it accessible) so there shouldn't be too much for you to do. Mostly you'll need to make sure that any changes you make don't break the site's current level of accessibility. In that respect, there's two main things that I can think of:
 
-* colour contrasts, and
+* colour contrasts; and
 * descriptive text for icons and images.
 
 ### Colour Contrast
@@ -150,3 +151,7 @@ The WCAG mandates specific thresholds for different font sizes, so it's easiest 
 Users who use screenreaders can't see your images or icons, so you need to provide them with some descriptive text instead. In this case, there's two places where that needs to happen: on the social menu icons, and in any images you include in project pages. The social menu icons were covered above in [the section about static content](#static-content).
 
 <TODO images>
+
+### Auditing
+
+how to run an accessibility audit on a page
