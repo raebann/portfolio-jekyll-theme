@@ -17,7 +17,7 @@ sass:
 collections_dir: projects
 collections:
   design:
-    name: 'Design/Technical'
+    name: "Design/Technical"
     weight: 0
     output: true
   performance:

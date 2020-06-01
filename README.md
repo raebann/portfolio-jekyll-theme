@@ -16,9 +16,10 @@ This is a portfolio site built using a modified version of the [Portfolio Jekyll
       1. [General Configuration](#general-configuration)
       2. [Theming](#theming)
       3. [Static Content](#static-content)
-   2. [Categories](#categories)
-   3. [Project Pages](#project-pages)
-   4. [Images](#images)
+   2. [Managing Projects](#managing-projects)
+      1. [Categories](#categories)
+      2. [Project Pages](#project-pages)
+      3. [Images](#images)
 3. [Accessibility Considerations](#accessibility-considerations)
    1. [Colour Contrast](#colour-contrast)
    2. [Descriptive Test](#descriptive-text)
@@ -28,7 +29,7 @@ This is a portfolio site built using a modified version of the [Portfolio Jekyll
 
 ### Directory Structure
 
-The site's directory structure pretty closely follows a standard Jekyll project (some files that you hopefully won't need to worry about have been ommited):
+The site's directory structure pretty closely follows a standard Jekyll project (some files that you hopefully won't need to worry about have been omited):
 
 ```bash
 Portfolio Jekyll Theme/
@@ -56,11 +57,13 @@ There are two file types that you will most likely have to edit: `.yml` (YAML) f
 
 YAML is a simple markup language for defining data in plain text. In this site it's used for anything from defining theme colours, to menu items, to SEO (search engine optimization) tags. You generally won't have to edit these files often as the settings are mostly static.
 
-When you do edit them though, keep in mind that YAML is **whitespace-sensitive**, so the number of spaces at the beggining of a line matters.
+Something you might notice about this file format is that any line that starts with `#` is a **comment**,which means it's ignored by the computer. You might also notice that some values are wrapped in single or double quotes (`'` or `"`) while others are not.  good rule of thumb is that when defining a value that will be dispalyed on some page or that contains spaces, you want to use quotes; when defining keywords for the computer, you don't. When you edit these files, also keep in mind that YAML is **whitespace-sensitive**, so the number of spaces at the beggining of a line matters.
+
+This might be a bit overwhelming at first, so if you're confused, just try to match the formatting of similar sections in the YAML file.
 
 #### Markdown
 
-Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](#https://www.markdownguide.org/cheat-sheet/) [good](#https://commonmark.org/help/) [guides](#https://guides.github.com/features/mastering-markdown/) on to write Markdown.
+Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](#https://www.markdownguide.org/cheat-sheet/) [good](#https://commonmark.org/help/) [guides](#https://guides.github.com/features/mastering-markdown/) on to write Markdown, so I won't be going over the basics here.
 
 > Markdown implementations tend to differ from one another, so your mileage may vary with any specific guide. Generally speaking the most common features are consistent, but if all else fails [this guide](#https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
 
@@ -78,8 +81,8 @@ Other than images ([discussed below](#images)) you won't have to touch these unl
 
 TODO
 * short overwiew of what exactly jekyll does
-  * mention frontmatter?
-* brief explanation of what liquid is + link to docs (will be useful in images section later maybe)
+* mention frontmatter in md files
+* brief explanation of what liquid is + link to docs (exlpain {% ... %} tags)
 
 ## Configuration & Usage
 
@@ -114,19 +117,64 @@ The `about`, `cv`, and `contact` sections define the contents of each of those p
 
 The `social` section behaves mostly like the `menu` above: each entry will add a social icon in the bottom menu. Each entry needs an `icon` (refer to [this list](https://fontawesome.com/v4.7.0/icons#brand) for available icons and their codes), a `link` to the social media profile, and a `name`. The name is for screenreader users, who can't see the icon and so need a brief textual description of where the link will go (the site's name should be enough in most cases). For email, the `link` should be formatted like `mailto:email@example.com`.
 
-### Categories
+### Managing Projects
 
-TODO
-* how to manage (existing & new) categories (`_config.yml`, subdir structure, and `index.html` files)
-  * don't forget that title lives in two places ugh
+Of course, the cruz of the portfolio website is the **Projects** section. This section contains a bunch of project pages, split up into different categories. Managing these projects and categories is probably where you'll spend most of your time working on this site.
 
-### Projects Pages
+#### Categories
+
+As [mentioned above](#general-configuration), the project categories are defined in the `_congif.yml` file, specifically in the `collections` section. It contains a list of categories, each labelled with a computer-friendly value (meaning avoid spaces and uncommon characters) and containing the following parameters:
+
+* `name`: The name to be displayed on the website.
+* `weight`: This defines the order in which the categories are dispalyed on the home page; a lower number means it will show up first. Note that this doesn't affect the order of the menu items under **Projects**.
+* `output`: This should always be `true`, otherwise Jekyll won't generate the category's project pages.
+
+Each category additionally needs a folder inside the `projects/` directory. This folder should have the same name as the computer-friendly label in we set in `collections`, prefixed with an underscore, and should contain an `index.md` file. Each `index.md` file should start with some boilerplate [frontmatter](#jekyll--liquid) containing at least these three values:
+
+* `layout: default`;
+* , `title: Category Name`, where `Category Name` is what you defined in `collections` (unfortunately because of the way Jekyll works I couldn't avoid duplicating this); and
+* `permalink: /:collection`.
+
+The file's contents should be a single [Liquid tag](#jekyll--liquid) that looks like so (where `CATEGORY_LABEL` is the computer-friendly category label mentioned above:
+
+```liquid
+{% include projects.html category=site.CATEGORY_LABEL %}
+```
+
+All this means that if you wanted to add a "Web Development" category, you might add the following lines to the `collections` object:
+
+```yaml
+collections:
+  # the other categories omitted for brevity
+  web_dev:
+    name: "Web Development"
+    weight: 4
+    output: true
+```
+
+You would then create a folder named `_web_dev/` inside the `projects/` folder and add the following file to it with the name `index.md`:
+
+```md
+---
+layout: default
+title: Web Development
+permalink: /:collection
+---
+
+{% include projects.html category=site.web_dev %}
+```
+
+And **ta-dah**! You've got yourself a brand new project category! However, if you visit your home page after making these changes you'd notice that something's missing: the web development category doesn't have a thumbnail image. I'm going to go over project pages first, but if you want to you can [skip to the images section](#images) for instructions on how to fix that.
+
+#### Project Pages
+
+
 
 TODO
 * how to add a project page, how to edit, what the frontmatter settings are, etc
 * make sure to mention images in brief (link below), and links
 
-### Images
+#### Images
 
 TODO
 * how to add an image to a post, where they should live, how to make sure they're as accessible as possible, etc
@@ -150,8 +198,10 @@ The WCAG mandates specific thresholds for different font sizes, so it's easiest 
 
 Users who use screenreaders can't see your images or icons, so you need to provide them with some descriptive text instead. In this case, there's two places where that needs to happen: on the social menu icons, and in any images you include in project pages. The social menu icons were covered above in [the section about static content](#static-content).
 
-<TODO images>
+TODO
+* descriptive text on images
 
 ### Auditing
 
-how to run an accessibility audit on a page
+TODO
+* how to run an accessibility audit on a page
