@@ -1,9 +1,5 @@
-# Layout settings
-animation: "bounceOut"
-
 # Colors
 accent: "#bd5248"
 textColor: "#666"
 headlineColor: "#333"
-bgcolor: "#e5eaee"
-documentBackgroundColor: "#fff"
+bgColor: "#fff"
