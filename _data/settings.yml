@@ -39,8 +39,8 @@ contact: >
 # For a list of available icons, visit https://fontawesome.com/v4.7.0/icons/
 
 social:
-- {icon: 'twitter', link: '#'}
-- {icon: 'instagram', link: '#'}
-- {icon: 'github', link: '#'}
-- {icon: 'linkedin', link: '#'}
-- {icon: 'envelope', link: 'mailto:#'}
+- {icon: 'twitter',   name: 'Twitter',    link: '#', }
+- {icon: 'instagram', name: 'Instagram',  link: '#'}
+- {icon: 'github',    name: 'GitHub',     link: '#'}
+- {icon: 'linkedin',  name: 'LinkedIn',   link: '#'}
+- {icon: 'envelope',  name: 'Email',      link: 'mailto:#'}
