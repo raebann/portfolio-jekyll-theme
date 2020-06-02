@@ -10,7 +10,9 @@ This is a portfolio site built using a modified version of [the Portfolio Jekyll
       1. [YAML](#yaml)
       2. [Markdown](#markdown)
       3. [Others](#others)
-   3. [Jekyll & Liquid](#jekyll--liquid)
+   3. [Jekyll](#jekyll)
+      1. [Frontmatter](#frontmatter)
+      2. [Liquid Tags](#liquid-tags)
 2. [Configuration & Usage](#configuration--usage)
    1. [Site Settings](#site-settings)
       1. [General Configuration](#general-configuration)
@@ -64,7 +66,7 @@ This might be a bit overwhelming at first, so if you're confused, just try to ma
 
 #### Markdown
 
-Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](https://www.markdownguide.org/cheat-sheet/) [good](https://commonmark.org/help/) [guides](https://guides.github.com/features/mastering-markdown/) to learn Markdown, so I won't be going over the basics here.
+Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. It's much more limited than HTML in terms of layout capabilities and flexibility, but also much simpler to use. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](https://www.markdownguide.org/cheat-sheet/) [good](https://commonmark.org/help/) [guides](https://guides.github.com/features/mastering-markdown/) to learn Markdown, so I won't be going over the basics here.
 
 > Markdown implementations tend to differ from one another, so your mileage may vary with any specific guide. Generally speaking the most common features are consistent, but if all else fails [this guide](https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
 
@@ -78,12 +80,36 @@ Obviously there's a few other file types in the project, most notably:
 
 Other than images ([discussed below](#images)) you won't have to touch these unless you want to change the site's fundamental appearance or behaviour.
 
-### Jekyll & Liquid
+### Jekyll
 
-TODO
-* short overwiew of what exactly jekyll does
-* mention frontmatter in md files
-* brief explanation of what liquid is + link to docs (exlpain {% ... %} tags)
+This website is built using [Jekyll](#https://jekyllrb.com/), a popular **static site generator**. What this means is that Jekyll is a program that reads a bunch of specially formatted files and builds a static website out of them (in this case, static as opposed to dynamic, where the site's contents depend on user actions: think Pinterest or Google). This lets you build relatively simple websites without having to worry about many of the pitfalls of edit HTML files directly.
+
+#### Frontmatter
+
+As mentioned before, Jekyll uses [Markdown](#markdown) to let you edit page contents. One peculiarity you might have noticed if you've looked at any of the `.md` files in the project is that they all start with a block of text that looks like this:
+
+```md
+---
+some: values
+more: different values
+---
+```
+
+This is called the **frontmatter**. It starts and ends with a line containing `---`, and has a bunch of key-value pairs in between: the part before the colon is the key, and the part after is the value for that key. This block of text basically tells Jekyll how to process the file contents and gives it any information it might need to do so. Further down in this guide, you'll sometimes have to edit a file's frontmatter, so it's a good idea to remember how it's formatted.
+
+#### Liquid Tags
+
+The other odd thing you might have noticed in some `.md` files is lines that look like this:
+
+```liquid
+{% include some.html with=values %}
+```
+
+These are called **Liquid tags**. [Liquid](https://shopify.github.io/liquid/) is a templating language developed by Shopify that lets you define more complex behaviour than Markdown. However, and Liquid tags are processed by Jekyll and turned into static HTML exactly like the Markdown files.
+
+These tags start with `{%` and end with `%}`. In between they can have a variety of keywords, but the only one you'll be using is the `include` keyword. This keyword is following by an HTML file  and some key-value pairs to tell Jekyll how to deal with the included HTML file (similar to how frontmatter works for Markdown files).
+
+You'll only need to use these tags in two instances: for [category pages](#categories), where you'll include the `projects.html` file, and for [images](#images), where you'll include the `image.html` file. For details on the keys and values to use for those tags, refer to their respective sections. Don't worry if you don't quite understand this now; we'll go over examples further down.
 
 ## Configuration & Usage
 
@@ -130,13 +156,13 @@ As [mentioned above](#general-configuration), the project categories are defined
 * `weight`: This defines the order in which the categories are displayed on the home page; a lower number means it will show up first. Note that this doesn't affect the order of the menu items under Projects (those show up in the order defined).
 * `output`: This should always be `true`, otherwise Jekyll won't generate the category's project pages.
 
-Each category additionally needs a folder inside the `projects/` directory. This folder should have the same name as the computer-friendly label we set in `collections`, prefixed with an underscore, and should contain an `index.md` file. Each `index.md` file should start with some boilerplate [frontmatter](#jekyll--liquid) containing at least these three values:
+Each category additionally needs a folder inside the `projects/` directory. This folder should have the same name as the computer-friendly label we set in `collections`, prefixed with an underscore, and should contain an `index.md` file. Each `index.md` file should start with some boilerplate [frontmatter](#frontmatter) containing at least these three values:
 
 * `layout: default` (verbatim);
 * `title: Category Name`, where `Category Name` is what you defined in `collections` (unfortunately because of the way Jekyll works I couldn't avoid duplicating this); and
 * `permalink: /:collection` (verbatim).
 
-The file's contents should be a single [Liquid tag](#jekyll--liquid) that looks like so (where `CATEGORY_LABEL` is the computer-friendly category label mentioned above:
+The file's contents should be a single [Liquid tag](#liquid-tags) that looks like so (where `CATEGORY_LABEL` is the computer-friendly category label mentioned above:
 
 ```liquid
 {% include projects.html category=site.CATEGORY_LABEL %}
@@ -153,7 +179,7 @@ collections:
     output: true
 ```
 
-You would then create a folder named `_web-dev/` inside the `projects/` folder and add the following file to it with the name `index.md` (notice the Liquid tag at the end):
+You would then create a folder named `_web-dev/` inside the `projects/` folder and add the following file to it with the name `index.md` (notice the aforementioned Liquid tag at the end):
 
 ```md
 ---
@@ -171,7 +197,7 @@ And **ta-dah**, you've got yourself a brand new project category! You can naviga
 
 #### Project Pages
 
-Now that we have a brand-new category, it's time to add content to it! Fortunately, managing projects is a lot easier than categories. Each project is just a single `.md` file in the category's folder. The file name is the URL where we can find it, while the file contents should be the frontmatter `layout: post` and `title: Project Page Title` (where `Project Page Title` is replaced with the actual page title, of course). For instance, let's say you want to add a project named "My First Website" to the Web Development category: in that case you might create a `my-first-site.md` file in the `projects/_web-dev/` folder and put the following inside:
+Now that we have a brand-new category, it's time to add content to it! Fortunately, managing projects is a lot easier than categories. Each project is just a single `.md` file in the category's folder. The file name is the URL where we can find it, while the file contents should be [the frontmatter](#frontmatter) `layout: post` and `title: Project Page Title` (where `Project Page Title` is replaced with the actual page title, of course). For instance, let's say you want to add a project named "My First Website" to the Web Development category: in that case you might create a `my-first-site.md` file in the `projects/_web-dev/` folder and put the following inside:
 
 ```md
 ---
@@ -188,7 +214,7 @@ This will automatically generate the project page and add a link to it in its ca
 
 #### Images
 
-At this point, you know how to add text content to your site and to style it through Markdown, but you might be wondering about adding images to project pages. In fact, if you were eager and read through any of [the Markdown guides linked above](#markdown), you might've noticed that Markdown provides a way to include images. However, this method gives us limited control over the result, so we'll be using [a Liquid tag](#liquid--jekyll) instead.
+At this point, you know how to add text content to your site and to style it through Markdown, but you might be wondering about adding images to project pages. In fact, if you were eager and read through any of [the Markdown guides linked above](#markdown), you might've noticed that Markdown provides a way to include images. However, this method gives us limited control over the result, so we'll be using [a Liquid tag](#liquid-tags) instead.
 
 But first, where should images live? If you recall [the directory structure](#directory-structure), there's a folder named `assets/img/` in our project. The stucture of this folder should mirror the structure of the `projects/` folder: for each category folder in `projects/`, there should be a folder in `assets/img/` with the same name **minus the leading underscore**. Each of those folders should contain one image named `thumb.jpg`, which is the category's thumbnail. Additionally, there should be a folder per project page, with the same name as the project. This folder should similarly include a `thumb.jpg` file that will be the project's thumbnail. So if you have a `web-dev` category with one project named `my-first-site.md`, you would have something like this:
 
