@@ -4,6 +4,7 @@ markdown: kramdown
 permalink: none
 plugins: [jekyll-sitemap, jekyll-seo-tag]
 include: ['_pages']
+exclude: ['README.md']
 permalink: /:collection/:path
 
 port: 4000
