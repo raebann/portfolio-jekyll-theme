@@ -13,6 +13,7 @@ This is a portfolio site built using a modified version of [the Portfolio Jekyll
    3. [Jekyll](#jekyll)
       1. [Frontmatter](#frontmatter)
       2. [Liquid Tags](#liquid-tags)
+   4. [Editing & Saving Files](#editing--saving-files)
 2. [Configuration & Usage](#configuration--usage)
    1. [Site Settings](#site-settings)
       1. [General Configuration](#general-configuration)
@@ -111,6 +112,12 @@ These tags start with `{%` and end with `%}`. In between they can have a variety
 
 You'll only need to use these tags in two instances: for [category pages](#categories), where you'll include the `projects.html` file, and for [images](#images), where you'll include the `image.html` file. For details on the keys and values to use for those tags, refer to their respective sections. Don't worry if you don't quite understand this now; we'll go over examples further down.
 
+### Editing & Saving Files
+
+The easiest way to edit your site's files is through the GitHub web interface. Simply navigate to any file above and click on the :pencil2: icon in the top-right. This will let you edit the file right in your browser, and in the case of Markdown files, to preview the changes by clicking the **Preview Changes** button. Deleted content will show up with a red border on the left, while new content will have a green one.
+
+To save changes, write a short description of the changes in the box below (under the **Commit changes** header) and click the **Commit changes** button. This will save the file and cause Jekyll to rebuild your website. The process can take a couple of minutes, so be patient if you don't see the changes right away. Also keep in mind that GitHub has a limit of 10 builds per hour, and since a build happens every time you save a file, you probably want to make all your changes at once and then save. It's probably okay to go slightly over the limit once or twice, but I wouldn't push it.
+
 ## Configuration & Usage
 
 ### Site Settings
@@ -138,7 +145,7 @@ When choosing colours, make sure the contrast between the foreground and backgro
 
 The second file in `_data/`, `settings.yml`, contains the site's "static" content (I'm just calling it static because it presumably changes less often than projects, not because it can't or shouldn't change). It comprises three sections: `menu` at the top, `about` `cv` and `contact` in the middle, and `social` at the bottom. This mirrors the order they would appear in a page.
 
-The `menu` section defines the menu on the top-right of every page. Each entry needs to have a `name` which will be displayed, and a `url` which is the page that should be linked. Optionally, a menu item can have a list of `children`, which each have the same structure. Note that the menu doesn't support a depth of more than two (_i.e._ children can't themselves have children).
+The `menu` section defines the menu on the top-right of every page. Each entry needs to have a `name` which will be displayed, and a `url` which is the page that should be linked. Optionally, a menu item can have a list of `children`, which each have the same structure. Note that the menu doesn't support a depth of more than two (*i.e.* children can't themselves have children).
 
 The `about`, `cv`, and `contact` sections define the contents of each of those pages in Markdown. Notice that the first line of each starts with `>`. This just tells the YAML file that every indented line coming after is part of this section.
 
@@ -282,17 +289,25 @@ This text will not be visible to sighted users. As such, if you want to include 
 
 ### Semantic Markup
 
-TODO
-* explain basics of semantic markup
-   * bold for important text, italic for emphasis, etc.
-   * links should contain descriptive text inside them (eg "[click here](#) for more info" is bad, "[click here for more info](#)" is better)
-      * related: links to filed should include the file type in the content so users know it's going to open a new document
-* avoid # or === in md bc we already have an h1 tag in post pages
+When writing HTML it's important to know that HTML tags have semantic meaning. That means that when you italicize something (which is done by using the `<em>` tag), that means something different than when you don't, or than when you bold it (with the `<strong>` tag).
+
+This is important because screenreaders infer meaning and context from these tags, and using tags in non-semantic ways will confuse them. You're not writing HTML, of course, but your Markdown will be processed and end up as HTML, so you still have to be aware of some things:
+
+* bolding (`**bold**` in Markdown) means the text is of strong important or urgent;
+* italicizing (`*italics*` in Markdown) means the text is emphasized;
+* lists can either be ordered (using `1.`, `2.`, *etc.*) or unordered (using `*`); and
+* there are six levels of headers in HTML (represented by `#` to `######` in Markdown), which should always occur in order.
+
+The last of these means that when adding headers, you shouldn't skip any levels: you should start with a level 1 header (`#`), and the next header shouldn't be level 3 (`###`) or above (it can be level 1 or 2). There also shoulnd't be more than one level 1 header per page. On this site, project pages should start their headers at level 2 (`##`) because the project title is already rendered as a level 1 heading.
+
+Another thing to keep in mind (this isn't really about semantic markup but **is** about writing good markup) is that link text should be descriptive on its own. This is so anyone who doesn't have immediate access to the surrounding text (such as screenreader users) can still understand what the link will do. For instance, "[click here](#) for more info" is bad while "[click here for more info](#)" is better. Some people also consider it courteous when linking files to include the file type in the link text (_e.g._ "[a document link (pdf)](#)"), though this is not a requirement.
 
 ### Auditing
 
-TODO
-* how to run an accessibility audit on a page
-   * chrome: https://developers.google.com/web/tools/lighthouse/
-   * firefox: https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector
-   * safari: https://webkit.org/blog/8935/audits-in-web-inspector/
+As you've no doubt noticed by now, there's a lot that goes into web accessibility. This document is by no means an exhaustive list, and you might worry that some change you've made breaks the site's accessibility. A quick and easy (though not 100% certain; nothing really is) way to verify a that a page still meets accessibility guidelines is to run an automated audit on it. Most web browsers have a built-in way to do so in their Dev Tools. These can usually be accessed by right-clicking and selecting the option labelled "Inspect" (the wording might vary slightly from browser to browser).
+
+In Google Chrome, the audit tool is named [Lighthouse](https://developers.google.com/web/tools/lighthouse#devtools). To access it, open the Dev Tools and go to the tab named Lighthouse (it might be hidden behind an » icon). It lets you choose between running a Desktop or Mobile audit, but there is no difference between those options for the accessibility report. Click **Generate Report**, and within 30-60 seconds you'll get a report. Note that it gives you different reports for performance, accessibility, best practices, and SEO.
+
+In Firefox, the audit tool is named [the Accessibility Inspector](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector). To access it, open the Dev Tools and go to the tab named Accessibility (**not** Inspector). Like on Chrome, it might be hidden behind an » icon. To run the audit, click on **Turn On Accessibility Features**, then select **All issues** from the dropdown labelled **Check for issues** at the top of the tab. This will give you a list of potential accessibility issues found on the page.
+
+On Safari, the audit tool is just called [Audits](https://webkit.org/blog/8935/audits-in-web-inspector/). Again, open the Dev Tools and select the Audits tab (this time potentially hidden behind a + icon). Select **Accessibility** on the left, and click the **Start** button on the right. This will give you a list of the audits that were run, and whether each passed or failed.
