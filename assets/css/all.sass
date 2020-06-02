@@ -6,13 +6,14 @@
 //------------------------------------------------
 // Set some colors as sass variables
 
-$accent: {{ site.data.layout.accent }}
-$accent-light: adjust-hue(saturate(lighten($accent, 11%), 12.6%), 14%)
-$selectionColor: lighten($accent, 30%)
-
 $textColor: {{ site.data.layout.textColor }}
 $headlineColor: {{ site.data.layout.headlineColor }}
 $bgColor: {{ site.data.layout.bgColor }}
+$dark: lightness($bgColor) < 50
+
+$accent: {{ site.data.layout.accent }}
+$accentHover: if($dark, lighten($accent, 20%), darken($accent, 20%))
+$selectionColor: if($dark, darken($accent, 30%), lighten($accent, 40%))
 
 @import '2-base/-base-dir'
 @import '3-sections/-sections-dir'
