@@ -136,10 +136,11 @@ The `_data` folder contains the `layout.yml` and `settings.yml` files. The first
 
 * `accent`: This is the site's accent colour. It's used for the link colour, the hover colour of menu items, and the text highlight colour.
 * `textColor`: This is the base text colour for most of the site. Note that links, menu items, and headers do not use this colour.
+* `menuColor`: This is the colour for menu items when they're not focused.
 * `headlineColor`: This is the colour for individual page titles.
-* `documentBackgroundColor`: This is the site's background colour.
+* `bgColor`: This is the site's background colour.
 
-When choosing colours, make sure the contrast between the foreground and background is high enough to abide by [accessibility requirements](#colour-contrast). Also note that (for now) menu items don't have any colour settings; they'll always be black (`#000000`). This means you can't give the site a dark theme as the menus will be illegible.
+When choosing colours, make sure the contrast between the foregrounds (`accent`, `textColor`, `menuColor`, and `headlineColor`) and background (`bgColor`) is high enough to abide by [accessibility requirements](#colour-contrast).
 
 #### Static Content
 
@@ -275,7 +276,7 @@ Fortunately, this site is fairly simple (and yours truly tried their best to mak
 
 The colours defined in `_data/layout.yml` need to conform to contrast requirements. Users with low vision (and also everyone else tbh) have trouble reading text when the contrast between the foreground and background are too low.
 
-The WCAG mandates specific thresholds for different font sizes, so it's easiest to use [a tool like this](https://accessible-colors.com/) to check your chosen colours. For reference, at time of writing, the font size of your body text is 16px, and your headers range from 24px to 30px.
+The WCAG mandates specific thresholds for different font sizes, so it's easiest to use [a tool like this](https://accessible-colors.com/) to check your chosen colours. For reference, at time of writing, the font size of your body text is 16 pixels, your headers range from 18 to 30 pixels, and your menus are 24 pixels.
 
 ### Descriptive Text
 
