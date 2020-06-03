@@ -22,7 +22,8 @@
     height: 100%
     background: fade-out(#333, 0.4)
     text-align: center
-    //+transition
+    opacity: 0
+    transition: opacity .1s linear
     +display(flex)
     +align-items(center)
     +justify-content(space-around)
@@ -37,6 +38,7 @@
 
 a:hover .thumb-unit .thumb-overlay,
 a:focus .thumb-unit .thumb-overlay
+  opacity: 1
   +position(absolute, 0px 0px null 0px)
 
 @media (max-width: 768px)
@@ -45,3 +47,7 @@ a:focus .thumb-unit .thumb-overlay
     .thumb-unit
       width: 80vw
       height: 40vw
+
+@media (prefers-reduced-motion)
+  .thumb-unit .thumb-overlay
+    transition: none
