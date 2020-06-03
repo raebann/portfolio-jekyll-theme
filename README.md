@@ -69,7 +69,7 @@ This might be a bit overwhelming at first, so if you're confused, just try to ma
 
 Markdown is a markup language for formatting documents (_e.g._ adding headers, bold and italic text, or links) in plain text. It's much more limited than HTML in terms of layout capabilities and flexibility, but also much simpler to use. Here we use it to define the contents of the project pages. This is the format you'll be using most. There are plenty of [very](https://www.markdownguide.org/cheat-sheet/) [good](https://commonmark.org/help/) [guides](https://guides.github.com/features/mastering-markdown/) to learn Markdown, so I won't be going over the basics here.
 
-> Markdown implementations tend to differ from one another, so your mileage may vary with any specific guide. Generally speaking the most common features are consistent, but if all else fails [this guide](https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
+> Markdown implementations tend to differ slightly from one another, so your mileage may vary with any specific guide. Generally speaking the most common features are consistent, but if all else fails [this reference](https://kramdown.gettalong.org/quickref.html) should be the authoritative one for this site, since that's the Markdown version being used.
 
 #### Others
 
@@ -83,7 +83,7 @@ Other than images ([discussed below](#images)) you won't have to touch these unl
 
 ### Jekyll
 
-This website is built using [Jekyll](#https://jekyllrb.com/), a popular **static site generator**. What this means is that Jekyll is a program that reads a bunch of specially formatted files and builds a static website out of them (in this case, static as opposed to dynamic, where the site's contents depend on user actions: think Pinterest or Google). This lets you build relatively simple websites without having to worry about many of the pitfalls of edit HTML files directly.
+This website is built using [Jekyll](#https://jekyllrb.com/), a popular **static site generator**. What this means is that Jekyll is a program that reads a bunch of specially formatted files and builds a static website out of them (in this case, static as opposed to dynamic, where the site's contents depend on user actions: think Pinterest or Google). This lets you build relatively simple websites without having to worry about many of the pitfalls of editing HTML files directly.
 
 #### Frontmatter
 
@@ -106,11 +106,11 @@ The other odd thing you might have noticed in some `.md` files is lines that loo
 {% include some.html with=values %}
 ```
 
-These are called **Liquid tags**. [Liquid](https://shopify.github.io/liquid/) is a templating language developed by Shopify that lets you define more complex behaviour than Markdown. However, and Liquid tags are processed by Jekyll and turned into static HTML exactly like the Markdown files.
+These are called **Liquid tags**. [Liquid](https://shopify.github.io/liquid/) is a templating language developed by Shopify that lets you define more complex behaviour than Markdown, which is useful when you want more complicated layouts than Markdown allows. However, Liquid tags are processed by Jekyll and turned into static HTML exactly like the Markdown files.
 
-These tags start with `{%` and end with `%}`. In between they can have a variety of keywords, but the only one you'll be using is the `include` keyword. This keyword is following by an HTML file  and some key-value pairs to tell Jekyll how to deal with the included HTML file (similar to how frontmatter works for Markdown files).
+These tags start with `{%` and end with `%}`. In between they can have a variety of keywords, but the only one you'll be using is the `include` keyword. This keyword is followed by an HTML file and some key-value pairs to tell Jekyll how to deal with the included HTML file (similar to how frontmatter works for Markdown files).
 
-You'll only need to use these tags in two instances: for [category pages](#categories), where you'll include the `projects.html` file, and for [images](#images), where you'll include the `image.html` file. For details on the keys and values to use for those tags, refer to their respective sections. Don't worry if you don't quite understand this now; we'll go over examples further down.
+You'll only need to use these tags for images, where you'll include the `image.html` file. For details on the possible keys and values, you can refer to [the image section further down](#images). Don't worry if you don't quite understand this now; we'll go over an example in that section.
 
 ### Editing & Saving Files
 
@@ -158,7 +158,7 @@ Of course, the crux of the portfolio website is the **Projects section**. This s
 
 #### Categories
 
-As [mentioned above](#general-configuration), the project categories are defined in the `_config_.yml` file, specifically in the `collections` section. It contains a list of categories, each labelled with a computer-friendly value used for the URL (so you should avoid everything but alphanumeric characters and underscores or slashes) and containing the following parameters:
+As [mentioned above](#general-configuration), the project categories are defined in the `_config.yml` file, specifically in the `collections` section. It contains a list of categories, each labelled with a computer-friendly value used for the URL (so you should avoid everything but alphanumeric characters and underscores or slashes) and containing the following parameters:
 
 * `name`: The name to be displayed on the website.
 * `weight`: This defines the order in which the categories are displayed on the home page; a lower number means it will show up first. Note that this doesn't affect the order of the menu items under Projects (those show up in the order defined).
@@ -166,17 +166,12 @@ As [mentioned above](#general-configuration), the project categories are defined
 
 Each category additionally needs a folder inside the `projects/` directory. This folder should have the same name as the computer-friendly label we set in `collections`, prefixed with an underscore, and should contain an `index.md` file. Each `index.md` file should start with some boilerplate [frontmatter](#frontmatter) containing at least these three values:
 
-* `layout: default` (verbatim);
+* `layout: category` (verbatim);
+* `category: category-label`, where `category-label` is the aforementioned computer-friendly label;
 * `title: Category Name`, where `Category Name` is what you defined in `collections` (unfortunately because of the way Jekyll works I couldn't avoid duplicating this); and
 * `permalink: /:collection` (verbatim).
 
-The file's contents should be a single [Liquid tag](#liquid-tags) that looks like so (where `CATEGORY_LABEL` is the computer-friendly category label mentioned above:
-
-```liquid
-{% include projects.html category=site.CATEGORY_LABEL %}
-```
-
-All this means that if you wanted to add a "Web Development" category, you might add the following lines to the `collections` object:
+Any Markdown included below the frontmatter will appear above the project list. All this means that if you wanted to add a "Web Development" category, you might add the following lines to the `collections` object:
 
 ```yaml
 collections:
@@ -187,16 +182,15 @@ collections:
     output: true
 ```
 
-You would then create a folder named `_web-dev/` inside the `projects/` folder and add the following file to it with the name `index.md` (notice the aforementioned Liquid tag at the end):
+You would then create a folder named `_web-dev/` inside the `projects/` folder and add the following file to it with the name `index.md`:
 
 ```md
 ---
-layout: default
+layout: category
+category: web-dev
 title: Web Development
 permalink: /:collection
 ---
-
-{% include projects.html category=site.web-dev %}
 ```
 
 And **ta-dah**, you've got yourself a brand new project category! You can navigate to `yoursite.com/web-dev/` to see the projects in this category: there are none right now, since we just created it. Obviously we want to change that, so let's see how to manage project pages.
@@ -222,7 +216,7 @@ This will automatically generate the project page and add a link to it in its ca
 
 #### Images
 
-At this point, you know how to add text content to your site and to style it through Markdown, but you might be wondering about adding images to project pages. In fact, if you were eager and read through any of [the Markdown guides linked above](#markdown), you might've noticed that Markdown provides a way to include images. However, this method gives us limited control over the result, so we'll be using [a Liquid tag](#liquid-tags) instead.
+At this point, you know how to add text content to your site and to style it through Markdown, but you might be wondering about adding images to project pages. In fact, if you were eager and read through any of [the Markdown guides linked above](#markdown), you might've noticed that Markdown provides a way to include images. However, this method gives us limited control over the final result, so we'll be using [a Liquid tag](#liquid-tags) instead.
 
 But first, where should images live? If you recall [the directory structure](#directory-structure), there's a folder named `assets/img/` in our project. The stucture of this folder should mirror the structure of the `projects/` folder: for each category folder in `projects/`, there should be a folder in `assets/img/` with the same name **minus the leading underscore**. Each of those folders should contain one image named `thumb.jpg`, which is the category's thumbnail. Additionally, there should be a folder per project page, with the same name as the project. This folder should similarly include a `thumb.jpg` file that will be the project's thumbnail. So if you have a `web-dev` category with one project named `my-first-site.md`, you would have something like this:
 
@@ -268,7 +262,7 @@ Web accessibility can be hard! The WCAG (Web Consortium Accessibility Guidelines
 
 Fortunately, this site is fairly simple (and yours truly tried their best to make it accessible) so there shouldn't be too much for you to do. Mostly you'll need to make sure that any changes you make don't break the site's current level of accessibility. In that respect, there are three main things I can think of:
 
-* havin appropriate colour contrast;
+* having appropriate colour contrast;
 * adding descriptive text to icons and images; and
 * using semantic markup.
 

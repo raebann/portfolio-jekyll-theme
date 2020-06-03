@@ -1,7 +1,6 @@
 ---
-layout: default
+layout: category
+category: performance
 title: Performance
 permalink: /:collection
 ---
-
-{% include projects.html category=site.performance %}

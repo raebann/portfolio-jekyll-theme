@@ -1,7 +1,6 @@
 ---
-layout: default
+layout: category
+category: interdisciplinary
 title: Interdisciplinary
 permalink: /:collection
 ---
-
-{% include projects.html category=site.interdisciplinary %}

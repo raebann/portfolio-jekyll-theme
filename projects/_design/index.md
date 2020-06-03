@@ -1,7 +1,6 @@
 ---
-layout: default
+layout: category
+category: design
 title: Design/Technical
 permalink: /:collection
 ---
-
-{% include projects.html category=site.design %}
